@@ -1,0 +1,17 @@
+name: ArchGuard
+version: 1.0.0
+main: me.aevyx.archguard.ArchGuard
+api-version: '1.21'
+authors:
+  - Aevyx
+description: Detects and stops packet flooding attacks on Paper servers.
+depend:
+  - ProtocolLib
+
+permissions:
+  archguard.admin:
+    description: Receive alerts when a player is flooding packets.
+    default: op
+  archguard.bypass:
+    description: Bypass all packet flood checks.
+    default: false
