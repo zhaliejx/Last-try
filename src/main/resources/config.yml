@@ -2,41 +2,88 @@
 # by Aevyx
 
 # Time window in milliseconds to count packets in
-# Default: 1000ms (1 second)
 window-ms: 1000
 
 # How many violations before kicking the player
-# A violation = one window where threshold was exceeded
 kick-after-violations: 3
 
-# Cancel (drop) the flooding packets instead of letting them through
+# Cancel (drop) the flooding packets
 cancel-packets: true
 
-# Notify online admins (archguard.admin permission) when a flood is detected
+# Notify admins (archguard.admin) when flood detected
 alert-admins: true
 
-# ─────────────────────────────────────────────
-# Max packets per type allowed within window-ms
-# ─────────────────────────────────────────────
-thresholds:
-  WINDOW_CLICK: 20      # Inventory clicks — main exploit vector (lower = stricter)
-  FLYING: 100           # Generic movement keep-alive
-  POSITION: 60          # Position updates
-  LOOK: 60              # Look/rotation updates
-  POSITION_LOOK: 60     # Combined position+look
-  ARM_ANIMATION: 30     # Arm swing animation
-  ENTITY_ACTION: 20     # Sneak, sprint, jump
-  BLOCK_DIG: 20         # Block breaking
-  USE_ITEM: 20          # Item use / right-click
-  HELD_ITEM_SLOT: 20    # Hotbar slot switching
-  CREATIVE: 15          # Creative mode set-slot
-  CHAT: 10              # Chat messages
-  TAB_COMPLETE: 5       # Tab-complete requests
+# ─────────────────────────────────────────────────────
+# PUBLIC SHAME
+# Broadcasts a message to all players when someone
+# is kicked for packet flooding.
+# ─────────────────────────────────────────────────────
+public-shame:
+  enabled: true
+  message: "&c&l{player} &7has been caught &cPacket Flooding &7our server and has been &4Eliminated."
 
-# ─────────────────────────────────────────────
+# ─────────────────────────────────────────────────────
+# BAN SYSTEM
+# Automatically IP bans a player after being kicked
+# by ArchGuard a set number of times.
+# ─────────────────────────────────────────────────────
+ban-system:
+  enabled: true
+  kicks-before-ban: 4
+
+# ─────────────────────────────────────────────────────
+# KICK MESSAGE
+# Shown when a player is kicked for flooding.
+# Use \n for new lines.
+# ─────────────────────────────────────────────────────
+kick-message:
+  - ""
+  - "&4&l[ ARCHGUARD ]"
+  - ""
+  - "&7Your connection has triggered our"
+  - "&7network protection system."
+  - ""
+  - "&cReason: &fSuspicious Packet Activity"
+  - ""
+  - "&7If you believe this is a mistake,"
+  - "&7please contact a staff member."
+  - ""
+
+# ─────────────────────────────────────────────────────
+# BAN MESSAGE
+# Shown when a player is IP banned.
+# ─────────────────────────────────────────────────────
+ban-message:
+  - ""
+  - "&4&l[ ARCHGUARD — PERMANENTLY REMOVED ]"
+  - ""
+  - "&7You have been IP banned for repeated"
+  - "&7packet flooding violations."
+  - ""
+  - "&cThis action was taken automatically."
+  - ""
+
+# ─────────────────────────────────────────────────────
+# Packet thresholds (max per window-ms)
+# ─────────────────────────────────────────────────────
+thresholds:
+  WINDOW_CLICK: 20
+  FLYING: 100
+  POSITION: 60
+  LOOK: 60
+  POSITION_LOOK: 60
+  ARM_ANIMATION: 30
+  ENTITY_ACTION: 20
+  BLOCK_DIG: 20
+  USE_ITEM: 20
+  HELD_ITEM_SLOT: 20
+  CREATIVE: 15
+  CHAT: 10
+  TAB_COMPLETE: 5
+
+# ─────────────────────────────────────────────────────
 # Enable/disable monitoring per packet type
-# Set to false to skip checking that packet type
-# ─────────────────────────────────────────────
+# ─────────────────────────────────────────────────────
 monitor:
   WINDOW_CLICK: true
   FLYING: true

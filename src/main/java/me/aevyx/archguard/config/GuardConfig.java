@@ -65,4 +65,36 @@ public class GuardConfig {
     public boolean isMonitored(String packetType) {
         return plugin.getConfig().getBoolean("monitor." + packetType, true);
     }
+
+    // ── Public Shame ──────────────────────────────────────
+    public boolean isPublicShameEnabled() {
+        return plugin.getConfig().getBoolean("public-shame.enabled", true);
+    }
+
+    public String getShameMessage(String playerName) {
+        return org.bukkit.ChatColor.translateAlternateColorCodes('&',
+            plugin.getConfig().getString("public-shame.message",
+                "&c&l{player} &7has been caught &cPacket Flooding &7our server and has been &4Eliminated.")
+                .replace("{player}", playerName));
+    }
+
+    // ── Ban System ────────────────────────────────────────
+    public boolean isBanSystemEnabled() {
+        return plugin.getConfig().getBoolean("ban-system.enabled", true);
+    }
+
+    public int getKicksBeforeBan() {
+        return plugin.getConfig().getInt("ban-system.kicks-before-ban", 4);
+    }
+
+    // ── Kick / Ban Messages ───────────────────────────────
+    public String getKickMessage() {
+        return org.bukkit.ChatColor.translateAlternateColorCodes('&',
+            String.join("\n", plugin.getConfig().getStringList("kick-message")));
+    }
+
+    public String getBanMessage() {
+        return org.bukkit.ChatColor.translateAlternateColorCodes('&',
+            String.join("\n", plugin.getConfig().getStringList("ban-message")));
+    }
 }
